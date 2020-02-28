@@ -1,0 +1,38 @@
+# Loading the Data. Can find the data in the ReadMe
+Wine130 <- function() {
+  library(readr)
+  # winemag_data_130k_v2 <- read_csv("Documents/R/wine-reviews/winemag-data-130k-v2.csv")
+  # Import the data set here with your correct path
+}
+
+# This function uses the title of the wine to create a new column for vintage of the wine
+WineVintages <- function(data) {
+  library(stringr)
+  # Problems with vintages under 1990, so ignoring data under that year
+  dfVintages = distinct(as.data.frame(data))
+  n = length(dfVintages$title)
+  vintage = rep(0,n)
+  dfVintages = cbind(dfVintages, vintage)
+  years = seq(1990, 2020)
+  yearsStr = unlist(lapply(years, toString))
+  lowYears = c()
+  for (i in 1:n)
+  {
+    descrip = dfVintages$title[i]
+    rows = str_detect(descrip, yearsStr)
+    if (TRUE %in% rows)
+    {
+      row = which(rows)
+      vint = years[row]
+      dfVintages$vintages[i] = vint
+    }
+    # print(i)
+  }
+  dfVintages = dfVintages[-which(dfVintages$vintages == 0),]
+}
+
+# Creates the cleaned data set to be used later
+data = Wine130()
+wineVint = WineVintages(data)
+wine = wineVint[,-c(1,11)]
+View(wine)
