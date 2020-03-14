@@ -3,8 +3,7 @@ Wine130 <- function() {
   library(plyr)
   library(dplyr)
   library(readr)
-  # winemag_data_130k_v2 <- read_csv("Documents/R/wine-reviews/winemag-data-130k-v2.csv")
-  # Import with your correct path
+  winemag_data_130k_v2 <- read_csv("Documents/R/wine-reviews/winemag-data-130k-v2.csv")
 }
 
 # Looks at the title of the wine and extracts the vintages out of there.
@@ -39,4 +38,4 @@ wineVint = WineVintages(data)
 # Removes the redundent column of row number
 # Also removes twitter handle
 wine = wineVint[,-c(1,11)]
-View(wine)
+wine
