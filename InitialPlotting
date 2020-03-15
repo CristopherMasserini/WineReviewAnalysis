@@ -30,8 +30,13 @@ FreqAtPriceBarChart <- function(table, minPoint) {
   freqTable = xtabs(~roundPrice+HighRatings$country)
   table2 = as.data.frame(as.matrix(freqTable))
   
-  p1 = ggplot(table2, aes(fill=HighRatings.country, y=Freq, x=roundPrice)) + 
-    geom_bar(position="stack", stat="identity")
+  Cap = paste("For points greater than or equal to", minPoint)
+  
+  p1 = ggplot(table2, aes(fill=HighRatings.country, y=Freq, x=roundPrice, lege)) + 
+    geom_bar(position="stack", stat="identity") +
+    guides(fill=guide_legend(title="Countries")) +
+    ggtitle(paste("Number of bottles at different price points")) + xlab("Price for a bottle") + 
+    ylab("Number of bottles") + labs(caption = Cap)
   
   return(p1)
 }
